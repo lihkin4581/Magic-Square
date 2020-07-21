@@ -1,0 +1,210 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css">
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.min.js"></script>
+    <script type="text/javascript" src="http://code.jquery.com/jquery-2.1.1.min.js"></script>
+    <title>Magic Square</title>
+
+    <style>
+        input::-webkit-outer-spin-button,
+        input::-webkit-inner-spin-button {
+            -webkit-appearance: none;
+            margin: 0;
+        }
+        
+        .squareValues {
+            margin: 5px;
+            height: 70px;
+            width: 9%;
+            font-size: xx-large;
+            text-align: center;
+            color: blue;
+        }
+        
+        .squareValues:hover {
+            box-shadow: 0 0 5px rgba(81, 203, 238, 1);
+        }
+        
+        body {
+            background-image: url("data:image/jpeg;base64,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");
+            background-repeat: no-repeat;
+            background-size: cover;
+        }
+    </style>
+
+</head>
+
+<body>
+    <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+        <div class="navbar-brand ">
+            <div class="col-12">
+                <h2>Magic Square</h2>
+            </div>
+        </div>
+    </nav>
+    <div class="container mt-5">
+        <div id="magicSquare" class="col-12 offset-4"></div>
+        <div id="repetitionError" class="offset-4 col-4">
+            <p class="text-danger">Repetition of digits not allowed</p>
+        </div>
+        <button id="validateSquare" class="offset-5 col-2 btn btn-sm btn-primary" style="margin-top: 10px;">Validate</button>
+        <div class="row" style="margin-top: 20px;">
+            <div id="result" class="offset-3"></div>
+            <button id="playAgain" class="btn btn-outline-info col-3 alert alert-secondary" type="button" style="margin-left: 5px;height: 90%;">Clear All!</button>
+        </div>
+    </div>
+</body>
+
+<script>
+    $(document).ready(function() {
+
+        // create table on clicking the submit button
+        createTable();
+        $("#validateSquare").show();
+        $("#playAgain").hide();
+        $("#repetitionError").hide();
+
+
+        // validate the square on clicking validate button
+        $('#validateSquare').click(function() {
+            validateMagic();
+        });
+    });
+
+    $('#playAgain').click(function() {
+        location.reload();
+    });
+
+    // creating the 3x3 matrix for magic square
+    function createTable() {
+        var magicSquare = $('#magicSquare')
+
+        magicSquare.html()
+
+        for (var i = 0; i < 3; i++) {
+            for (var j = 0; j < 3; j++) {
+                magicSquare.append('<input type="search" class="squareValues"  onkeyup="return isNum(' + i + ',' + j + ')" maxlength="1" required/>');
+            }
+            magicSquare.append('<div></div>');
+        }
+    }
+
+    //check if the inputs are valid
+    function isNum(i, j) {
+        var count = 0;
+        childIdentifier = 4 * i + j + 1;
+
+        var inputValue = parseInt(document.querySelector("#magicSquare > input:nth-child(" + childIdentifier + ")").value); //get the value of the input field
+
+        if (isNaN(inputValue) || inputValue == 0)
+            document.querySelector("#magicSquare > input:nth-child(" + childIdentifier + ")").value = ""; //reset the value of the input field if it is not a number
+
+        else {
+            for (var x = 0; x < 3; x++) {
+                for (var y = 0; y < 3; y++) {
+                    child = 4 * x + y + 1;
+
+                    var test = parseInt(document.querySelector("#magicSquare > input:nth-child(" + child + ")").value); //test for repetition of numbers in each box
+
+                    if (inputValue == test) count += 1;
+
+                    element = document.querySelector("#magicSquare > input:nth-child(" + childIdentifier + ")");
+                    element.setAttribute('style', 'color:blue;');
+
+                    $("#repetitionError").hide();
+
+                    if (count > 1) {
+                        $("#repetitionError").show();
+
+                        element.setAttribute('style', 'box-shadow: 0 0 10px rgb(255, 0, 0)'); //highlight if number repeated
+                        document.querySelector("#magicSquare > input:nth-child(" + childIdentifier + ")").value = ""; //reset the input value if the number is repeated
+                    }
+                }
+            }
+            return true;
+        }
+    }
+
+    // validating whether the given input forms a magic square
+    function validateMagic() {
+        var i, j;
+        var flag1 = true;
+
+        for (i = 0; i < 3; i++) {
+            for (j = 0; j < 3; j++) {
+                childIdentifier = 4 * i + j + 1;
+                var testForBlankInput = document.querySelector("#magicSquare > input:nth-child(" + childIdentifier + ")").value;
+                if (testForBlankInput == "")
+                    flag1 = 0;
+            }
+        }
+
+        //if all square fields are filled, validate the square
+        if (flag1) {
+            var result = $('#result');
+            result.html(""); //reset the result div 
+            var squareValues = $('.squareValues');
+            var mainSquare = [];
+            for (i = 0; i < 3; i++) {
+                var subSquare = [];
+                for (j = 0; j < 3; j++) {
+                    subSquare.push(parseInt(squareValues.get(i * 3 + j).value));
+                }
+                mainSquare.push(subSquare);
+            }
+
+            var flag2 = true; //flag2 to check the validity of the square
+            const magicSquareSum = 15;
+            var sum = 0;
+
+            //checking whether the sum of each column equals the magic sum
+            for (sCol = 0; sCol < 3; sCol++) {
+                for (sRow = 0; sRow < 3; sRow++) {
+                    sum += mainSquare[sRow][sCol];
+                }
+                if (sum != magicSquareSum) flag2 = false;
+                sum = 0;
+            }
+
+            //checking whether the sum of each row equals the magic sum
+            for (sRow = 1; sRow < 3; sRow++) {
+                for (sCol = 0; sCol < 3; sCol++) {
+                    sum += mainSquare[sRow][sCol];
+                }
+                if (sum != magicSquareSum) flag2 = false;
+                sum = 0;
+            }
+
+            //checking whether the sum of right diagonal is equal to the magic sum
+            for (i = 0; i < 3; i++) {
+                sum += mainSquare[i][i];
+            }
+            if (sum != magicSquareSum) flag2 = false;
+            sum = 0;
+
+            //checking whether the sum of left diagonal is equal to the magic sum
+            for (i = 0; i < 3; i++) {
+                sum += mainSquare[i][2 - i];
+            }
+            if (sum != magicSquareSum) {
+                flag2 = false;
+            }
+            sum = 0;
+
+
+            if (flag2) {
+                result.append("<p class='alert alert-success'><strong>Congrats!!!...</strong>Its a magic square</p>");
+            } else {
+                result.append("<p class='alert alert-danger'><strong>Sorry!!!...</strong> It's not a magic square...</p>");
+            }
+            $("#playAgain").show();
+        } else alert("Please input numbers in all the squares!!..")
+    }
+</script>
+
+
+</html>
